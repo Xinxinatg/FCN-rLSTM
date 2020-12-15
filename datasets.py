@@ -46,7 +46,7 @@ class Trancos(Dataset):
 
         self.cam_ids = {}
         if get_cameras:
-            with open(os.path.join(self.path, 'images', 'cam_annotations.txt')) as f:
+            with open('/content/FCN-rLSTM/cam_annotations.txt') as f:
                 for line in f:
                     img_f, cid = line.split()
                     if img_f in self.image_files:
@@ -143,7 +143,7 @@ class TrancosSeq(Trancos):
     This version assumes the data is sequential, i.e. it returns sequences of images captured by the same camera.
     """
 
-    def __init__(self, train=True, path='./TRANCOS_v3', out_shape=8, transform=NP_T.ToTensor(), gamma=30, max_len=None, cameras=None):
+    def __init__(self, train=True, path='./TRANCOS_v3', size_red=8, transform=NP_T.ToTensor(), gamma=30, max_len=None, cameras=None):
         r"""
         Args:
             train: train (`True`) or test (`False`) images (default: `True`).
@@ -155,13 +155,12 @@ class TrancosSeq(Trancos):
             cameras: list with the camera IDs to be used, so that images from other cameras are discarded;
                 if `None`, all cameras are used; it has no effect if `get_cameras` is `False` (default: `None`).
         """
-        super(TrancosSeq, self).__init__(train=train, path=path, size_red=size_red, transform=transform, gamma=gamma, get_cameras=True, cameras=cameras)
-
+        super(TrancosSeq, self).__init__(train=train, path=path, out_shape=(120, 160), transform=transform, gamma=gamma, get_cameras=True, cameras=cameras)
         self.img2idx = {img: idx for idx, img in enumerate(self.image_files)}  # hash table from file names to indices
         self.seqs = []  # list of lists containing the names of the images in each sequence
         prev_cid = -1
         cur_len = 0
-        with open(os.path.join(self.path, 'images', 'cam_annotations.txt')) as f:
+        with open('/content/FCN-rLSTM/cam_annotations.txt') as f:
             for line in f:
                 img_f, cid = line.split()
                 if img_f in self.image_files:
