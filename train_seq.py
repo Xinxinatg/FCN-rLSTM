@@ -120,7 +120,7 @@ def main():
             X, mask, density, count = X.transpose(1, 0), mask.transpose(1, 0), density.transpose(1, 0), count.transpose(1, 0)
 
             # forward pass through the model
-            density_pred, count_pred = model(X, mask=mask, lengths=seq_len)
+            density_pred, count_pred = model(X, mask=mask, lengths=seq_len.cpu())
 
             # compute the loss
             N = torch.sum(seq_len)
@@ -198,7 +198,7 @@ def main():
 
             # forward pass through the model
             with torch.no_grad():  # no need to compute gradients in validation (faster and uses less memory)
-                density_pred, count_pred = model(X, mask=mask, lengths=seq_len)
+                density_pred, count_pred = model(X, mask=mask, lengths=seq_len.cpu())
 
             # compute the loss
             N = torch.sum(seq_len)
