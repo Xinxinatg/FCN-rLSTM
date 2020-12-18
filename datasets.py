@@ -484,7 +484,6 @@ class VisDrone(Dataset):
         self.centers = {img_f: [] for img_f in self.image_files}
         for img_f in self.image_files:
             mat = io.loadmat(os.path.join(self.path, 'images',img_f.replace('.jpg','.mat').replace('IMG_','GT_IMG_')))
-            with open(os.path.join(self.path, 'images', img_f.replace('.jpg', '.txt'))) as f:
             gt = mat["image_info"][0,0][0,0][0]
             x = np.array([[1,1]])
             number=mat["image_info"][0,0][0,0][0].shape[0]
