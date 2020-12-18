@@ -469,7 +469,7 @@ class VisDrone(Dataset):
 
         self.cam_ids = {}
         if get_cameras:
-            with open('/content/FCN-rLSTM/cam_annotations.txt') as f:
+            with open(os.path.join(self.path, 'cam_annotations.txt')) as f:
                 for line in f:
                     img_f, cid = line.split()
                     if img_f in self.image_files:
