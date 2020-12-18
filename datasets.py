@@ -463,9 +463,9 @@ class VisDrone(Dataset):
         self.load_all = load_all
 
         if train:  # train + validation
-            self.image_files = [img[:-1] for img in open(os.path.join(self.path, 'image_sets', 'trainval.txt'))]
+            self.image_files = [img[:-1] for img in open(os.path.join(self.path, 'image_set', 'trainval.txt'))]
         else:  # test
-            self.image_files = [img[:-1] for img in open(os.path.join(self.path, 'image_sets', 'test.txt'))]
+            self.image_files = [img[:-1] for img in open(os.path.join(self.path, 'image_set', 'test.txt'))]
 
         self.cam_ids = {}
         if get_cameras:
@@ -573,12 +573,12 @@ class VisDroneSeq(VisDrone):
             cameras: list with the camera IDs to be used, so that images from other cameras are discarded;
                 if `None`, all cameras are used; it has no effect if `get_cameras` is `False` (default: `None`).
         """
-        super(TrancosSeq, self).__init__(train=train, path=path, out_shape=(120, 160), transform=transform, gamma=gamma, get_cameras=True, cameras=cameras)
+        super(VisDrone, self).__init__(train=train, path=path, out_shape=(120, 160), transform=transform, gamma=gamma, get_cameras=True, cameras=cameras)
         self.img2idx = {img: idx for idx, img in enumerate(self.image_files)}  # hash table from file names to indices
         self.seqs = []  # list of lists containing the names of the images in each sequence
         prev_cid = -1
         cur_len = 0
-        with open('/content/FCN-rLSTM/cam_annotations.txt') as f:
+        with open('/content/VisDrone2020-CC-FCN-rLSTM/cam_annotations.txt') as f:
             for line in f:
                 img_f, cid = line.split()
                 if img_f in self.image_files:
