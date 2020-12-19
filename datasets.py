@@ -10,7 +10,7 @@ import skimage.transform as SkT
 import torch
 from torch.utils.data import Dataset
 import torchvision.transforms as T
-
+import scipy.io as io
 import np_transforms as NP_T
 from utils import density_map
 
