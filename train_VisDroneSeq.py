@@ -109,7 +109,7 @@ def main():
         density_loss_hist = []
         count_loss_hist = []
         count_err_hist = []
-        X, density, count = None, None, None, None
+        X, density, count = None, None, None
         t0 = time.time()
         for i, (X, density, count, _, seq_len) in enumerate(train_loader):
             # copy the tensors to GPU (if applicable)
