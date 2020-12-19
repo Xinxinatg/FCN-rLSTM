@@ -19,7 +19,7 @@ class VisDrone(Dataset):
     Guerrero-Gómez-Olmedo et al., "Extremely overlapping vehicle counting.", IbPRIA 2015.
     """
 
-    def __init__(self, train=True, path='./TRANCOS_v3', out_shape=(120, 160), transform=None, gamma=30, get_cameras=False, cameras=None, load_all=True):
+    def __init__(self, train=True, path='./TRANCOS_v3', out_shape=(120, 160), transform=None, gamma=2.5, get_cameras=False, cameras=None, load_all=True):
         r"""
         Args:
             train: train (`True`) or test (`False`) images (default: `True`).
