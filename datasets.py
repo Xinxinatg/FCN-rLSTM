@@ -10,7 +10,6 @@ import skimage.transform as SkT
 import torch
 from torch.utils.data import Dataset
 import torchvision.transforms as T
-import scipy.io as sio
 import np_transforms as NP_T
 from utils import density_map
 
@@ -465,7 +464,7 @@ class VisDrone(Dataset):
         # get the coordinates of the centers of all vehicles in all images
         self.centers = {img_f: [] for img_f in self.image_files}
         for img_f in self.image_files:
-            mat = sio.loadmat(os.path.join(self.path, 'images',img_f.replace('.jpg','.mat').replace('IMG_','GT_IMG_')))
+            mat = scipy.io.loadmat(os.path.join(self.path, 'images',img_f.replace('.jpg','.mat').replace('IMG_','GT_IMG_')))
             gt = mat["image_info"][0,0][0,0][0]
             x = np.array([[1,1]])
             number=mat["image_info"][0,0][0,0][0].shape[0]
