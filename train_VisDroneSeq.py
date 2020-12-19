@@ -10,6 +10,7 @@ import torchvision.transforms as T
 import np_transforms as NP_T
 import plotter
 from datasets import TrancosSeq, WebcamTSeq
+from dataset_VisDrone import VisDroneSeq
 from model import FCN_rLSTM
 from utils import show_images, sort_seqs_by_len
 
