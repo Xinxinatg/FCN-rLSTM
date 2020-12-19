@@ -10,7 +10,7 @@ import skimage.transform as SkT
 import torch
 from torch.utils.data import Dataset
 import torchvision.transforms as T
-import scipy.io as io
+import scipy.io as sio
 import np_transforms as NP_T
 from utils import density_map
 
@@ -419,22 +419,6 @@ class WebcamTSeq(WebcamT):
 
         return X, mask, density, count, cam_id, seq_len
 
-import os
-import xml.etree.ElementTree as ET
-
-import matplotlib.gridspec as gridspec
-import matplotlib.pyplot as plt
-import numpy as np
-import scipy.io
-from skimage import io
-import skimage.transform as SkT
-import torch
-from torch.utils.data import Dataset
-import torchvision.transforms as T
-
-import np_transforms as NP_T
-from utils import density_map
-
 
 class VisDrone(Dataset):
     r"""
@@ -481,7 +465,7 @@ class VisDrone(Dataset):
         # get the coordinates of the centers of all vehicles in all images
         self.centers = {img_f: [] for img_f in self.image_files}
         for img_f in self.image_files:
-            mat = io.loadmat(os.path.join(self.path, 'images',img_f.replace('.jpg','.mat').replace('IMG_','GT_IMG_')))
+            mat = sio.loadmat(os.path.join(self.path, 'images',img_f.replace('.jpg','.mat').replace('IMG_','GT_IMG_')))
             gt = mat["image_info"][0,0][0,0][0]
             x = np.array([[1,1]])
             number=mat["image_info"][0,0][0,0][0].shape[0]
