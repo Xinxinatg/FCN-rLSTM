@@ -78,14 +78,14 @@ def main():
         # copy the tensors to GPU (if applicable)
         X, density, count, seq_len = X.to(device), density.to(device), count.to(device), seq_len.to(device)
         # sort the sequences by descending order of the respective lengths (as expected by the model)
-        seqs, seq_len = sort_seqs_by_len([X, mask, density, count], seq_len)
+        seqs, seq_len = sort_seqs_by_len([X, density, count], seq_len)
         X, density, count = seqs
         # transpose them so they have shape (seq_len, batch_size, *) (as expected by the model)
         X, density, count = X.transpose(1, 0), density.transpose(1, 0), count.transpose(1, 0)
 
         # forward pass through the model
         with torch.no_grad():  # no need to compute gradients in test (faster and uses less memory)
-            density_pred, count_pred = model(X, mask=mask)
+            density_pred, count_pred = model(X, mask=None)
 
         # compute the performance metrics
         density_loss += torch.sum((density_pred - density)**2)/2
