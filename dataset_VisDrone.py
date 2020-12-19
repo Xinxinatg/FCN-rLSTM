@@ -147,7 +147,7 @@ class VisDroneSeq(VisDrone):
             cameras: list with the camera IDs to be used, so that images from other cameras are discarded;
                 if `None`, all cameras are used; it has no effect if `get_cameras` is `False` (default: `None`).
         """
-        super(VisDroneSeq, self).__init__(train=train, path=path, out_shape=(120, 160), transform=transform, gamma=gamma, get_cameras=True, cameras=cameras)
+        super(VisDroneSeq, self).__init__(train=train, path=path, out_shape=(1080, 1920), transform=transform, gamma=gamma, get_cameras=True, cameras=cameras)
         self.img2idx = {img: idx for idx, img in enumerate(self.image_files)}  # hash table from file names to indices
         self.seqs = []  # list of lists containing the names of the images in each sequence
         prev_cid = -1
