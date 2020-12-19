@@ -19,7 +19,7 @@ class VisDrone(Dataset):
     Guerrero-Gómez-Olmedo et al., "Extremely overlapping vehicle counting.", IbPRIA 2015.
     """
 
-    def __init__(self, train=True, path='./TRANCOS_v3', out_shape=(1920, 1080), transform=None, gamma=2.5, get_cameras=False, cameras=None, load_all=True):
+    def __init__(self, train=True, path='./TRANCOS_v3', out_shape=(1080, 1920), transform=None, gamma=2.5, get_cameras=False, cameras=None, load_all=True):
         r"""
         Args:
             train: train (`True`) or test (`False`) images (default: `True`).
@@ -207,7 +207,3 @@ class VisDroneSeq(VisDrone):
         return X, density, count, cam_id, seq_len
 
 
-train_transf = T.Compose([
-        NP_T.RandomHorizontalFlip(0.5, keep_state=True),  # data augmentation: horizontal flipping (we could add more transformations)
-        NP_T.ToTensor() ])
-train_data = VisDroneSeq(train=True, path='/content/VisDrone2020-CC-FCN-rLSTM', size_red=8, transform=train_transf, gamma=10, max_len=5)
