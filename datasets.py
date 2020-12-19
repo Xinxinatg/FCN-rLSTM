@@ -491,19 +491,18 @@ class VisDrone(Dataset):
 
         if self.load_all:
             # load all the data into memory
-            self.images, self.masks, self.densities = [], [], []
+            self.images, self.densities = [], []
             for img_f in self.image_files:
-                X, mask, density = self.load_example(img_f)
-                self.images.append(X)
-                self.masks.append(mask)
+                X, density = self.load_example(img_f)
+                self.images.append(X)                
                 self.densities.append(density)
 
     def load_example(self, img_f):
-        # load the image and the binary mask
+        # load the image 
         X = io.imread(os.path.join(self.path, 'images', img_f))
         img_centers = self.centers[img_f]
 
-        # reduce the size of image and mask by the given amount
+        # reduce the size of image by the given amount
         H_orig, W_orig = X.shape[0], X.shape[1]
         if H_orig != self.out_shape[0] or W_orig != self.out_shape[1]:
             X = SkT.resize(X, self.out_shape, preserve_range=True).astype('uint8')
@@ -543,7 +542,7 @@ class VisDrone(Dataset):
         count = len(img_centers)
 
         if self.transform:
-            # apply the transformation to the image, mask and density map
+            # apply the transformation to the image and density map
             X, density = self.transform([X, density])
 
         if self.cam_ids:
